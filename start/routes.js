@@ -18,3 +18,12 @@ const Route = use('Route')
 
 //Aqui, o route esta acessando o AuthController, para que um novo usuario possa ser cirado 
 Route.post("/register", "AuthController.register");
+Route.post("/authenticate", "AuthController.authenticate");
+
+Route.get("/app", "AppController.index").middleware(["auth"]);
+
+Route.group(() => {
+
+    Route.resource("profile", "ProfileController").apiOnly();
+
+}).middleware(["auth"]);
